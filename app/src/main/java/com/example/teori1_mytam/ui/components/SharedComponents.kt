@@ -26,7 +26,7 @@ import com.example.teori1_mytam.data.model.Mangan
 
 private val Green      = Color(0xFF6B9B6B)
 private val GreenLight = Color(0xFFEDF4ED)
-private val GreenSoft  = Color(0xFFE8F5E9)
+
 private val BgGray     = Color(0xFFFAFAFA)
 
 // ─── Section Header ───────────────────────────────────────────────────────────
