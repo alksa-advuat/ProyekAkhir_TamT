@@ -1,8 +1,10 @@
 package com.example.teori1_mytam.data.repository
 
 import com.example.teori1_mytam.data.api.ApiService
+import com.example.teori1_mytam.data.model.request.LoginRequest
 import com.example.teori1_mytam.data.model.request.RegisterRequest
 import com.example.teori1_mytam.data.model.response.AuthResponse
+import com.example.teori1_mytam.data.model.request.UpdateBudgetRequest
 import com.example.teori1_mytam.utils.Resource
 
 class AuthRepository(
@@ -41,6 +43,24 @@ class AuthRepository(
             }
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Login gagal")
+        }
+    }
+
+    // sync budget ke server
+    suspend fun syncBudget(
+        userId: String,
+        budget: Int,
+        sisaBudget: Int,
+        budgetDate: String
+    ): Resource<AuthResponse> {
+        return try {
+            val response = authApi.updateBudget(
+                userId,
+                UpdateBudgetRequest(budget, sisaBudget, budgetDate)
+            )
+            Resource.Success(response)
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Gagal sync budget")
         }
     }
 }

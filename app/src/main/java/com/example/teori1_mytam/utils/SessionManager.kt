@@ -17,16 +17,20 @@ class SessionManager(context: Context) {
         private const val KEY_BUDGET = "user_budget"
         private const val KEY_SISA_BUDGET = "sisa_budget"
         private const val KEY_BUDGET_DATE = "budget_date"
+        private const val KEY_USER_ID     = "user_id"
     }
 
-    fun saveSession(token: String, email: String, name: String) {
+    fun saveSession(token: String, email: String, name: String, userId: String) {
         prefs.edit()
-            .putString(KEY_TOKEN,  token)
-            .putString(KEY_EMAIL,  email)
-            .putString(KEY_NAME,   name)
+            .putString(KEY_TOKEN,   token)
+            .putString(KEY_EMAIL,   email)
+            .putString(KEY_NAME,    name)
+            .putString(KEY_USER_ID, userId)
             .putBoolean(KEY_LOGGED, true)
             .apply()
     }
+
+    fun getUserId(): String = prefs.getString(KEY_USER_ID, "") ?: ""
 
     fun isLoggedIn(): Boolean = prefs.getBoolean(KEY_LOGGED, false)
     fun getToken(): String?   = prefs.getString(KEY_TOKEN, null)
