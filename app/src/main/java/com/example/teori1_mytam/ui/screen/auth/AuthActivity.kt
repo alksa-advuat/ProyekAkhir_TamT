@@ -43,9 +43,10 @@ class AuthActivity : ComponentActivity() {
                     if (uiState is AuthUiState.Success) {
                         val s = uiState as AuthUiState.Success
                         sessionManager.saveSession(
-                            token = s.token.ifEmpty { "logged_in" },
-                            email = s.email,
-                            name  = s.name
+                            token  = s.token.ifEmpty { "logged_in" },
+                            email  = s.email,
+                            name   = s.name,
+                            userId = s.userId    // ← tambah
                         )
                         goToMain()
                     }

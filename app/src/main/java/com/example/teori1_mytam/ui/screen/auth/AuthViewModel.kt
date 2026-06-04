@@ -7,6 +7,7 @@ import com.example.teori1_mytam.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import android.R.attr.name
 
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
@@ -19,10 +20,11 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
             when (val result = repository.login(email, password)) {
                 is Resource.Success -> {
                     val data  = result.data
-                    val token = data.token ?: data.id ?: "logged_in"
-                    val name  = data.name  ?: ""
-                    val mail  = data.email ?: email
-                    _uiState.value = AuthUiState.Success(token, name, mail)
+                    val token  = data.token ?: data.id ?: "logged_in"
+                    val name   = data.name  ?: name
+                    val mail   = data.email ?: email
+                    val userId = data.id    ?: ""     // ← tambah
+                    _uiState.value = AuthUiState.Success(token, name, mail, userId)
                 }
                 is Resource.Error -> _uiState.value = AuthUiState.Error(result.message)
                 is Resource.Loading -> Unit
@@ -36,10 +38,11 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
             when (val result = repository.register(name, email, password)) {
                 is Resource.Success -> {
                     val data  = result.data
-                    val token = data.token ?: data.id ?: "logged_in"
-                    val name  = data.name  ?: name
-                    val mail  = data.email ?: email
-                    _uiState.value = AuthUiState.Success(token, name, mail)
+                    val token  = data.token ?: data.id ?: "logged_in"
+                    val name   = data.name  ?: name
+                    val mail   = data.email ?: email
+                    val userId = data.id    ?: ""     // ← tambah
+                    _uiState.value = AuthUiState.Success(token, name, mail, userId)
                 }
                 is Resource.Error -> _uiState.value = AuthUiState.Error(result.message)
                 is Resource.Loading -> Unit
