@@ -10,9 +10,9 @@ data class RegisterRequest(
     val email: String,
     val password: String,
     val password_confirmation: String,
-    val budget: Int = 25000,        // ← tambah
-    val sisaBudget: Int = 25000,    // ← tambah
-    val budgetDate: String = ""     // ← tambah
+    val budget: Int = 15000,
+    val sisaBudget: Int = 15000,
+    val budgetDate: String = ""
 )
 
 // ← tambah ini untuk update budget
